@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AquaGuard Lifeguarding — Private Event Services</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ocean: #0A4F7A;
+    --ocean-mid: #1A7FB0;
+    --ocean-light: #B5D4F4;
+    --foam: #E6F4FB;
+    --sand: #F7F3ED;
+    --gold: #EF9F27;
+    --gold-dark: #BA7517;
+    --text: #1A1A1A;
+    --muted: #5a5a5a;
+    --border: rgba(0,0,0,0.1);
+    --white: #ffffff;
+  }
+  body { font-family: 'DM Sans', sans-serif; font-weight: 400; background: var(--white); color: var(--text); line-height: 1.6; }
+  .hero { background: var(--ocean); padding: 5rem 2rem 6rem; text-align: center; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 60px; background: var(--white); clip-path: ellipse(55% 100% at 50% 100%); }
+  .wave-pattern { position: absolute; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.06; background-image: repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(255,255,255,0.8) 28px, rgba(255,255,255,0.8) 30px); }
+  .badge { display: inline-block; background: var(--gold); color: #412402; font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; margin-bottom: 1.5rem; }
+  .hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2.6rem, 6vw, 4rem); color: var(--white); line-height: 1.15; margin-bottom: 0.5rem; position: relative; z-index: 1; }
+  .hero h1 em { font-style: italic; color: var(--ocean-light); }
+  .hero-sub { font-size: 1.05rem; color: rgba(255,255,255,0.75); max-width: 480px; margin: 0.75rem auto 2rem; position: relative; z-index: 1; }
+  .hero-cta { display: inline-block; background: var(--gold); color: #412402; font-weight: 500; font-size: 0.95rem; padding: 0.75rem 2rem; border-radius: 30px; text-decoration: none; position: relative; z-index: 1; cursor: pointer; border: none; font-family: 'DM Sans', sans-serif; transition: background 0.2s, transform 0.15s; }
+  .hero-cta:hover { background: #FAC775; transform: translateY(-1px); }
+  .section { padding: 3.5rem 1.5rem; max-width: 720px; margin: 0 auto; }
+  .section-label { font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ocean-mid); margin-bottom: 0.4rem; }
+  h2 { font-family: 'DM Serif Display', serif; font-size: 1.9rem; color: var(--ocean); margin-bottom: 1.25rem; line-height: 1.2; }
+  .rates-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 1.5rem 0; }
+  .rate-card { background: var(--foam); border: 0.5px solid var(--ocean-light); border-radius: 12px; padding: 1.25rem; text-align: center; }
+  .rate-card .big { font-family: 'DM Serif Display', serif; font-size: 2.2rem; color: var(--ocean); line-height: 1; }
+  .rate-card .label { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+  .divider { height: 1px; background: var(--border); margin: 0; }
+  .service-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin: 1.25rem 0; }
+  .service-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.95rem; }
+  .check { width: 20px; height: 20px; border-radius: 50%; background: var(--ocean-mid); color: white; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 11px; margin-top: 1px; }
+  .locations-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px; margin: 1.25rem 0; }
+  .loc-chip { background: var(--sand); border: 0.5px solid rgba(0,0,0,0.1); border-radius: 8px; padding: 8px 12px; font-size: 0.82rem; font-weight: 500; color: var(--ocean); text-align: center; }
+  .form-section { background: var(--ocean); padding: 3rem 1.5rem 4rem; text-align: center; }
+  .form-section h2 { color: var(--white); font-size: 1.75rem; margin-bottom: 0.5rem; }
+  .form-section p { color: rgba(255,255,255,0.7); font-size: 0.93rem; margin-bottom: 1.75rem; }
+  .form-card { background: var(--white); border-radius: 16px; padding: 2rem; max-width: 600px; margin: 0 auto; text-align: left; }
+  .form-row { margin-bottom: 1rem; }
+  .form-row label { display: block; font-size: 0.82rem; font-weight: 500; color: var(--muted); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .form-row input, .form-row select, .form-row textarea { width: 100%; padding: 10px 12px; border: 0.5px solid rgba(0,0,0,0.2); border-radius: 8px; font-size: 0.92rem; font-family: 'DM Sans', sans-serif; color: var(--text); background: #fff; transition: border-color 0.15s; }
+  .form-row input:focus, .form-row select:focus, .form-row textarea:focus { outline: none; border-color: var(--ocean-mid); box-shadow: 0 0 0 3px rgba(26,127,176,0.12); }
+  .form-row textarea { resize: vertical; min-height: 80px; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .cost-preview { background: var(--foam); border: 0.5px solid var(--ocean-light); border-radius: 8px; padding: 12px 14px; margin: 0.75rem 0 1.25rem; font-size: 0.88rem; color: var(--ocean); display: flex; justify-content: space-between; align-items: center; }
+  .cost-preview .total { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--ocean); }
+  .submit-row { display: flex; flex-direction: column; gap: 10px; margin-top: 1.25rem; }
+  .btn-primary { background: var(--ocean); color: white; border: none; border-radius: 30px; padding: 0.75rem 1.5rem; font-size: 0.95rem; font-weight: 500; font-family: 'DM Sans', sans-serif; cursor: pointer; width: 100%; transition: background 0.2s, transform 0.15s; text-align: center; }
+  .btn-primary:hover { background: var(--ocean-mid); transform: translateY(-1px); }
+  .gdocs-btn { background: white; color: var(--ocean); border: 1px solid var(--ocean-light); border-radius: 30px; padding: 0.75rem 1.5rem; font-size: 0.92rem; font-weight: 500; font-family: 'DM Sans', sans-serif; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.15s; text-decoration: none; }
+  .gdocs-btn:hover { background: var(--foam); }
+  .note { background: #FAEEDA; border-left: 3px solid var(--gold); border-radius: 0 8px 8px 0; padding: 10px 14px; font-size: 0.86rem; color: #633806; margin: 1rem 0; }
+  .success-msg { display: none; background: #EAF3DE; border: 0.5px solid #639922; border-radius: 10px; padding: 1rem 1.25rem; color: #27500A; font-size: 0.9rem; text-align: center; margin-top: 1rem; }
+  .footer { text-align: center; padding: 2rem 1rem; font-size: 0.8rem; color: var(--muted); border-top: 0.5px solid var(--border); }
+  @media (max-width: 500px) { .two-col { grid-template-columns: 1fr; } .rates-grid { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="wave-pattern"></div>
+  <div class="badge">Private Event Services · LA Area</div>
+  <h1>AquaGuard<br><em>Lifeguarding</em></h1>
+  <p class="hero-sub">Professional, certified lifeguard services for your private pool parties, events, and gatherings across the greater Los Angeles area.</p>
+  <button class="hero-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">Request a Lifeguard ↓</button>
+</section>
+
+<div class="section">
+  <div class="section-label">Rates & Availability</div>
+  <h2>Simple, transparent pricing</h2>
+  <div class="rates-grid">
+    <div class="rate-card">
+      <div class="big">$75</div>
+      <div class="label">per hour</div>
+    </div>
+    <div class="rate-card">
+      <div class="big">2 hr</div>
+      <div class="label">minimum booking</div>
+    </div>
+  </div>
+  <div class="note">Minimum booking is 2 hours ($150). For events over 6 hours or requiring multiple guards, please note this in your request for a custom quote.</div>
+  <ul class="service-list">
+    <li><span class="check">✓</span><span>Certified, experienced lifeguards for pools, spas & water features</span></li>
+    <li><span class="check">✓</span><span>Birthday parties, graduations, corporate events & private gatherings</span></li>
+    <li><span class="check">✓</span><span>First aid & CPR certified on duty at all times</span></li>
+    <li><span class="check">✓</span><span>Equipment provided (rescue tube, first aid kit)</span></li>
+    <li><span class="check">✓</span><span>Available weekdays & weekends — book in advance</span></li>
+  </ul>
+</div>
+
+<div class="divider"></div>
+
+<div class="section">
+  <div class="section-label">Service Area</div>
+  <h2>Serving greater West LA & beyond</h2>
+  <p style="color: var(--muted); margin-bottom:0.25rem; font-size:0.93rem;">Available within approximately 30 miles of the Westside, including:</p>
+  <div class="locations-grid">
+    <div class="loc-chip">Culver City</div>
+    <div class="loc-chip">Santa Monica</div>
+    <div class="loc-chip">Mar Vista</div>
+    <div class="loc-chip">Venice</div>
+    <div class="loc-chip">Marina del Rey</div>
+    <div class="loc-chip">Playa del Rey</div>
+    <div class="loc-chip">El Segundo</div>
+    <div class="loc-chip">Hawthorne</div>
+    <div class="loc-chip">Inglewood</div>
+    <div class="loc-chip">West LA</div>
+    <div class="loc-chip">Brentwood</div>
+    <div class="loc-chip">Pacific Palisades</div>
+    <div class="loc-chip">Malibu</div>
+    <div class="loc-chip">Beverly Hills</div>
+    <div class="loc-chip">West Hollywood</div>
+    <div class="loc-chip">Torrance</div>
+    <div class="loc-chip">Redondo Beach</div>
+    <div class="loc-chip">Hermosa Beach</div>
+    <div class="loc-chip">Manhattan Beach</div>
+    <div class="loc-chip">Gardena</div>
+    <div class="loc-chip">Lawndale</div>
+    <div class="loc-chip">Ladera Heights</div>
+    <div class="loc-chip">Baldwin Hills</div>
+    <div class="loc-chip">+ more areas</div>
+  </div>
+  <p style="font-size:0.82rem; color:var(--muted); margin-top:0.5rem;">Not sure if your location is covered? Submit a request and we'll confirm.</p>
+</div>
+
+<div class="divider"></div>
+
+<section class="form-section" id="booking">
+  <h2>Request a Lifeguard</h2>
+  <p>Fill out the form below and we'll confirm availability within 24 hours.</p>
+  <div class="form-card">
+    <div class="form-row">
+      <label>Your full name</label>
+      <input type="text" id="fname" placeholder="Jane Smith">
+    </div>
+    <div class="two-col">
+      <div class="form-row">
+        <label>Phone number</label>
+        <input type="tel" id="phone" placeholder="(310) 555-0100">
+      </div>
+      <div class="form-row">
+        <label>Email address</label>
+        <input type="email" id="email" placeholder="you@email.com">
+      </div>
+    </div>
+    <div class="form-row">
+      <label>Event address / location</label>
+      <input type="text" id="address" placeholder="123 Ocean Ave, Santa Monica, CA">
+    </div>
+    <div class="form-row">
+      <label>Type of event</label>
+      <select id="event-type">
+        <option value="">Select event type…</option>
+        <option>Birthday party</option>
+        <option>Graduation party</option>
+        <option>Corporate / company event</option>
+        <option>Family gathering</option>
+        <option>Kids pool party</option>
+        <option>HOA / community event</option>
+        <option>Other private event</option>
+      </select>
+    </div>
+    <div class="two-col">
+      <div class="form-row">
+        <label>Event date</label>
+        <input type="date" id="event-date">
+      </div>
+      <div class="form-row">
+        <label>Start time</label>
+        <input type="time" id="start-time">
+      </div>
+    </div>
+    <div class="form-row">
+      <label>Number of hours needed</label>
+      <select id="hours" onchange="updateCost()">
+        <option value="2">2 hours (minimum)</option>
+        <option value="3">3 hours</option>
+        <option value="4">4 hours</option>
+        <option value="5">5 hours</option>
+        <option value="6">6 hours</option>
+        <option value="7">7 hours</option>
+        <option value="8">8 hours</option>
+        <option value="custom">Custom / multiple guards</option>
+      </select>
+    </div>
+    <div class="cost-preview" id="cost-preview">
+      <span id="cost-label">2 hrs × $75/hr</span>
+      <span class="total" id="cost-total">$150</span>
+    </div>
+    <div class="form-row">
+      <label>Additional notes</label>
+      <textarea id="notes" placeholder="Pool size, number of guests, any special requirements or questions…"></textarea>
+    </div>
+    <div class="submit-row">
+      <button class="btn-primary" onclick="submitRequest()">Submit Request</button>
+      <!-- REPLACE THE HREF BELOW WITH YOUR GOOGLE FORM LINK -->
+      <a class="gdocs-btn" href="https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Submit via Google Form instead
+      </a>
+    </div>
+    <div class="success-msg" id="success-msg">
+      ✓ Request received! We'll be in touch within 24 hours to confirm your booking.
+    </div>
+  </div>
+</section>
+
+<div class="footer">
+  <strong>AquaGuard Lifeguarding</strong> · Serving greater Los Angeles<br>
+  <!-- ADD YOUR EMAIL/PHONE BELOW -->
+  <span style="margin-top:4px; display:block;">yourname@email.com · (310) 555-0000</span>
+  <span style="margin-top:4px; display:block;">Private event services only · All guards are certified &amp; insured</span>
+</div>
+
+<script>
+  function updateCost() {
+    const sel = document.getElementById('hours');
+    const label = document.getElementById('cost-label');
+    const total = document.getElementById('cost-total');
+    const val = sel.value;
+    if (val === 'custom') {
+      label.textContent = 'Custom quote needed';
+      total.textContent = 'TBD';
+    } else {
+      const hrs = parseInt(val);
+      label.textContent = hrs + ' hrs × $75/hr';
+      total.textContent = '$' + (hrs * 75).toLocaleString();
+    }
+  }
+
+  function submitRequest() {
+    const name = document.getElementById('fname').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const address = document.getElementById('address').value.trim();
+    const date = document.getElementById('event-date').value;
+    if (!name || !phone || !email || !address || !date) {
+      alert('Please fill in all required fields (name, phone, email, address, date).');
+      return;
+    }
+    document.getElementById('success-msg').style.display = 'block';
+    const btn = document.querySelector('.btn-primary');
+    btn.textContent = '✓ Request Sent';
+    btn.style.background = '#3B6D11';
+    btn.disabled = true;
+  }
+</script>
+
+</body>
+</html>
